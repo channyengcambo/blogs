@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -23,6 +24,13 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'is_admin',
+    ];
+
     /**
      * Get the attributes that should be cast.
      *
@@ -33,19 +41,12 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_admin' => 'boolean',
         ];
     }
 
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'is_admin',
-    ];
-
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-        'is_admin' => 'boolean',
-    ];
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
 }
