@@ -63,7 +63,7 @@
                 <x-bladewind::sidebar.item name="categories" label="Categories"
                     href="{{ route('admin.categories.index') }}" icon="folder" />
                 <x-bladewind::sidebar.item name="posts" label="Posts" href="#" icon="document-text" />
-                <x-bladewind::sidebar.item name="tags" label="Tags" href="#" icon="tag" />
+                <x-bladewind::sidebar.item name="tags" label="Tags" href="{{ route('admin.tags.index') }}" icon="tag" />
             </x-bladewind::sidebar.group>
         </x-bladewind::sidebar>
 
