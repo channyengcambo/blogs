@@ -217,4 +217,31 @@ class CategoryTest extends TestCase
         $response->assertOk();
         $response->assertJsonPath('message', 'Category deleted successfully.');
     }
+
+    public function test_categories_index_supports_pagination_and_custom_per_page(): void
+    {
+        Category::factory()->count(14)->create();
+
+        // Default pagination is 6 per page
+        $response = $this->actingAs($this->admin)->get(route('admin.categories.index'));
+        $response->assertOk();
+        $response->assertViewHas('categories', function ($categories) {
+            return $categories->total() === 14 && $categories->count() === 6 && $categories->perPage() === 6;
+        });
+
+        // Custom per_page of 12
+        $response12 = $this->actingAs($this->admin)->get(route('admin.categories.index', ['per_page' => 12]));
+        $response12->assertOk();
+        $response12->assertViewHas('categories', function ($categories) {
+            return $categories->total() === 14 && $categories->count() === 12 && $categories->perPage() === 12;
+        });
+
+        // Page 2 navigation
+        $responsePage2 = $this->actingAs($this->admin)->get(route('admin.categories.index', ['page' => 2]));
+        $responsePage2->assertOk();
+        $responsePage2->assertViewHas('categories', function ($categories) {
+            return $categories->currentPage() === 2 && $categories->count() === 6;
+        });
+    }
 }
+

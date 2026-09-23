@@ -46,8 +46,9 @@ class TagController extends Controller
             $query->doesntHave('posts');
         }
 
+        $perPage = in_array((int) $request->query('per_page'), [6, 12, 24, 48]) ? (int) $request->query('per_page') : 6;
         $tags = $query->latest()
-            ->paginate(12)
+            ->paginate($perPage)
             ->withQueryString();
 
         if ($request->wantsJson()) {
@@ -83,6 +84,7 @@ class TagController extends Controller
             'totalPosts' => $totalPosts,
             'topTag' => $topTag,
             'emptyTagsCount' => $emptyTagsCount,
+            'perPage' => $perPage,
         ]);
     }
 

@@ -230,4 +230,31 @@ class PostTest extends TestCase
         $this->assertEquals('PHP', $cached[0]['name']);
         $this->assertEquals('Laravel', $cached[1]['name']);
     }
+
+    public function test_posts_index_supports_pagination_and_custom_per_page(): void
+    {
+        Post::factory()->count(12)->create();
+
+        // Default pagination is 5 per page
+        $response = $this->actingAs($this->admin)->get(route('admin.posts.index'));
+        $response->assertOk();
+        $response->assertViewHas('posts', function ($posts) {
+            return $posts->total() === 12 && $posts->count() === 5 && $posts->perPage() === 5;
+        });
+
+        // Custom per_page of 10
+        $response10 = $this->actingAs($this->admin)->get(route('admin.posts.index', ['per_page' => 10]));
+        $response10->assertOk();
+        $response10->assertViewHas('posts', function ($posts) {
+            return $posts->total() === 12 && $posts->count() === 10 && $posts->perPage() === 10;
+        });
+
+        // Page 2 navigation
+        $responsePage2 = $this->actingAs($this->admin)->get(route('admin.posts.index', ['page' => 2]));
+        $responsePage2->assertOk();
+        $responsePage2->assertViewHas('posts', function ($posts) {
+            return $posts->currentPage() === 2 && $posts->count() === 5;
+        });
+    }
 }
+

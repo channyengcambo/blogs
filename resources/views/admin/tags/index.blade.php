@@ -343,11 +343,33 @@
                     </table>
                 </div>
 
-                @if ($tags->hasPages())
-                    <div class="px-5 py-4 border-t border-gray-100 dark:border-dark-700 bg-gray-50/50 dark:bg-dark-900/40">
-                        {{ $tags->links() }}
+                <!-- Data Table Pagination Footer -->
+                <div class="px-5 py-4 border-t border-gray-100 dark:border-dark-700 bg-gray-50/50 dark:bg-dark-900/40 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div class="text-xs text-gray-500 dark:text-gray-400">
+                        Showing <span class="font-semibold text-gray-900 dark:text-white">{{ $tags->firstItem() ?? 0 }}</span>
+                        to <span class="font-semibold text-gray-900 dark:text-white">{{ $tags->lastItem() ?? 0 }}</span>
+                        of <span class="font-semibold text-gray-900 dark:text-white">{{ $tags->total() }}</span> tags
                     </div>
-                @endif
+
+                    <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                            <span>Per page:</span>
+                            <select onchange="window.location.href = this.value"
+                                class="py-1 pl-2.5 pr-7 text-xs rounded-lg bg-white dark:bg-dark-800 border border-gray-200 dark:border-dark-700 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-sky-500">
+                                @foreach ([6, 12, 24, 48] as $size)
+                                    <option value="{{ request()->fullUrlWithQuery(['per_page' => $size, 'page' => 1]) }}"
+                                        @selected(($perPage ?? 6) == $size)>
+                                        {{ $size }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div>
+                            {{ $tags->links() }}
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- VIEW MODE 2: CARD GRID -->
@@ -412,11 +434,33 @@
                     @endforeach
                 </div>
 
-                @if ($tags->hasPages())
-                    <div class="p-4 bg-white dark:bg-dark-800/90 rounded-2xl border border-gray-200/80 dark:border-dark-700">
-                        {{ $tags->links() }}
+                <!-- Card Grid Pagination Footer -->
+                <div class="p-4 rounded-2xl bg-white dark:bg-dark-800/90 border border-gray-200/80 dark:border-dark-700 shadow-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-xs">
+                    <div class="text-gray-500 dark:text-gray-400">
+                        Showing <span class="font-semibold text-gray-900 dark:text-white">{{ $tags->firstItem() ?? 0 }}</span>
+                        to <span class="font-semibold text-gray-900 dark:text-white">{{ $tags->lastItem() ?? 0 }}</span>
+                        of <span class="font-semibold text-gray-900 dark:text-white">{{ $tags->total() }}</span> tags
                     </div>
-                @endif
+
+                    <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-2 text-gray-500 dark:text-gray-400">
+                            <span>Per page:</span>
+                            <select onchange="window.location.href = this.value"
+                                class="py-1 pl-2.5 pr-7 text-xs rounded-lg bg-white dark:bg-dark-800 border border-gray-200 dark:border-dark-700 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-sky-500">
+                                @foreach ([6, 12, 24, 48] as $size)
+                                    <option value="{{ request()->fullUrlWithQuery(['per_page' => $size, 'page' => 1]) }}"
+                                        @selected(($perPage ?? 6) == $size)>
+                                        {{ $size }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div>
+                            {{ $tags->links() }}
+                        </div>
+                    </div>
+                </div>
             </div>
         @endif
     </div>

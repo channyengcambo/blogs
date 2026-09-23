@@ -425,6 +425,34 @@
                         </tbody>
                     </table>
                 </div>
+
+                <!-- Data Table Pagination Footer -->
+                <div class="px-6 py-4 border-t border-gray-100 dark:border-dark-700 bg-gray-50/50 dark:bg-dark-900/40 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div class="text-xs text-gray-500 dark:text-gray-400">
+                        Showing <span class="font-semibold text-gray-900 dark:text-white">{{ $posts->firstItem() ?? 0 }}</span>
+                        to <span class="font-semibold text-gray-900 dark:text-white">{{ $posts->lastItem() ?? 0 }}</span>
+                        of <span class="font-semibold text-gray-900 dark:text-white">{{ $posts->total() }}</span> articles
+                    </div>
+
+                    <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                            <span>Per page:</span>
+                            <select onchange="window.location.href = this.value"
+                                class="py-1 pl-2.5 pr-7 text-xs rounded-lg bg-white dark:bg-dark-800 border border-gray-200 dark:border-dark-700 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-sky-500">
+                                @foreach ([5, 10, 25, 50] as $size)
+                                    <option value="{{ request()->fullUrlWithQuery(['per_page' => $size, 'page' => 1]) }}"
+                                        @selected($perPage == $size)>
+                                        {{ $size }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div>
+                            {{ $posts->links() }}
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- VIEW 2: MODERN CARD GRID -->
@@ -532,9 +560,32 @@
                 @endforeach
             </div>
 
-            <!-- Pagination Links -->
-            <div class="mt-6">
-                {{ $posts->links() }}
+            <!-- Card Grid Pagination Footer -->
+            <div x-show="viewMode === 'grid'" class="p-4 rounded-2xl bg-white dark:bg-dark-800/90 border border-gray-200/80 dark:border-dark-700 shadow-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-xs">
+                <div class="text-gray-500 dark:text-gray-400">
+                    Showing <span class="font-semibold text-gray-900 dark:text-white">{{ $posts->firstItem() ?? 0 }}</span>
+                    to <span class="font-semibold text-gray-900 dark:text-white">{{ $posts->lastItem() ?? 0 }}</span>
+                    of <span class="font-semibold text-gray-900 dark:text-white">{{ $posts->total() }}</span> articles
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                        <span>Per page:</span>
+                        <select onchange="window.location.href = this.value"
+                            class="py-1 pl-2.5 pr-7 text-xs rounded-lg bg-white dark:bg-dark-800 border border-gray-200 dark:border-dark-700 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-1 focus:ring-sky-500">
+                            @foreach ([5, 10, 25, 50] as $size)
+                                <option value="{{ request()->fullUrlWithQuery(['per_page' => $size, 'page' => 1]) }}"
+                                    @selected($perPage == $size)>
+                                    {{ $size }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div>
+                        {{ $posts->links() }}
+                    </div>
+                </div>
             </div>
         @endif
     </div>

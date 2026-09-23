@@ -59,7 +59,8 @@ class PostController extends Controller
             $query->latest('posts.created_at');
         }
 
-        $posts = $query->paginate(10)->withQueryString();
+        $perPage = in_array((int) $request->query('per_page'), [5, 10, 25, 50]) ? (int) $request->query('per_page') : 5;
+        $posts = $query->paginate($perPage)->withQueryString();
 
         if ($request->wantsJson()) {
             return response()->json([
@@ -92,6 +93,7 @@ class PostController extends Controller
             'status' => $status,
             'categoryId' => $categoryId,
             'sort' => $sort,
+            'perPage' => $perPage,
         ]);
     }
 
