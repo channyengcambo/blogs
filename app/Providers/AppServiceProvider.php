@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Vite;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -20,6 +20,19 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Vite::prefetch(concurrency: 3);
+        View::composer('layouts.app', function ($view) {
+            $route = request()->route()?->getName() ?? '';
+
+            $active = match (true) {
+                str_starts_with($route, 'admin.categories.') => 'categories',
+                str_starts_with($route, 'admin.posts.') => 'posts',
+                str_starts_with($route, 'admin.tags.') => 'tags',
+                str_starts_with($route, 'admin.dashboard') => 'dashboard',
+                str_starts_with($route, 'profile.') => 'profile',
+                default => 'dashboard',
+            };
+
+            $view->with('activeSidebar', $active);
+        });
     }
 }

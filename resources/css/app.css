@@ -1,3 +1,251 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* 
+ * Bladewind UI Overrides
+ * Restore button paddings and styling overridden by Tailwind v3 preflight
+ */
+.bw-button {
+    letter-spacing: 0.05em;
+    font-size: 0.75rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 0.375rem;
+    cursor: pointer;
+    line-height: 1.25;
+}
+
+.bw-button.regular {
+    padding: 0.75rem 1.25rem !important;
+}
+
+.bw-button.tiny {
+    padding: 0.375rem 0.9375rem !important;
+    font-size: 10px !important;
+}
+
+.bw-button.small {
+    padding: 0.59375rem 1rem !important;
+    font-size: 11px !important;
+}
+
+.bw-button.medium {
+    padding: 1rem 1.5rem !important;
+}
+
+.bw-button.big {
+    padding: 1.5rem 2.25rem !important;
+    font-size: 14px !important;
+}
+
+.bw-button.outlined {
+    padding-top: 0.625rem !important;
+    padding-bottom: 0.625rem !important;
+    background-color: transparent !important;
+}
+
+.bw-button.tiny.outlined {
+    padding-top: 0.3125rem !important;
+    padding-bottom: 0.3125rem !important;
+}
+
+.bw-button.small.outlined {
+    padding-top: 0.53125rem !important;
+    padding-bottom: 0.53125rem !important;
+}
+
+.bw-button.medium.outlined {
+    padding-top: 0.875rem !important;
+    padding-bottom: 0.875rem !important;
+}
+
+.bw-button.big.outlined {
+    padding-top: 1.375rem !important;
+    padding-bottom: 1.375rem !important;
+}
+
+.bw-button-circle {
+    border-radius: 9999px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.bw-button-circle.tiny {
+    width: 1.9375rem !important;
+    height: 1.9375rem !important;
+    min-width: 1.9375rem !important;
+    min-height: 1.9375rem !important;
+    padding: 0 !important;
+}
+
+.bw-button-circle.small {
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+    min-width: 2.5rem !important;
+    min-height: 2.5rem !important;
+    padding: 0.125rem !important;
+}
+
+.bw-button-circle.regular {
+    width: 2.625rem !important;
+    height: 2.625rem !important;
+    padding: 0.25rem !important;
+}
+
+.bw-button-circle.medium {
+    width: 3.125rem !important;
+    height: 3.125rem !important;
+    min-width: 3.125rem !important;
+    min-height: 3.125rem !important;
+    padding: 0.25rem !important;
+}
+
+.bw-button-circle.big {
+    width: 4.0625rem !important;
+    height: 4.0625rem !important;
+    padding: 0.75rem !important;
+}
+
+/* Secondary Button appearance in Light and Dark mode */
+.bw-button.bw-button-secondary:not(.outlined),
+.bw-button-circle.bw-button-secondary:not(.outlined) {
+    background-color: #ffffff !important;
+    color: #334155 !important;
+    border: 1px solid #cbd5e1 !important;
+}
+
+.dark .bw-button.bw-button-secondary:not(.outlined),
+.dark .bw-button-circle.bw-button-secondary:not(.outlined) {
+    background-color: #1C1F24 !important;
+    color: #e2e8f0 !important;
+    border: 1px solid #33373c !important;
+}
+
+.bw-button.bw-button-secondary:not(.outlined):hover,
+.bw-button-circle.bw-button-secondary:not(.outlined):hover {
+    background-color: #f8fafc !important;
+    color: #1e293b !important;
+}
+
+.dark .bw-button.bw-button-secondary:not(.outlined):hover,
+.dark .bw-button-circle.bw-button-secondary:not(.outlined):hover {
+    background-color: #262a2f !important;
+    color: #ffffff !important;
+}
+
+/* 
+ * Dark Mode Form Controls (Inputs, Textareas, Selects)
+ * Overrides @tailwindcss/forms default white background and border
+ */
+.dark [type='text'],
+.dark [type='email'],
+.dark [type='url'],
+.dark [type='password'],
+.dark [type='number'],
+.dark [type='date'],
+.dark [type='datetime-local'],
+.dark [type='month'],
+.dark [type='search'],
+.dark [type='tel'],
+.dark [type='time'],
+.dark [type='week'],
+.dark [multiple],
+.dark textarea,
+.dark select,
+.dark .bw-input,
+.dark .bw-textarea,
+.dark .bw-raw-select {
+    background-color: #101114 !important;
+    color: #f3f4f6 !important;
+    border-color: #33373c !important;
+}
+
+.dark [type='text']:hover:not(:focus),
+.dark [type='email']:hover:not(:focus),
+.dark [type='url']:hover:not(:focus),
+.dark [type='password']:hover:not(:focus),
+.dark [type='number']:hover:not(:focus),
+.dark [type='date']:hover:not(:focus),
+.dark [type='datetime-local']:hover:not(:focus),
+.dark [type='month']:hover:not(:focus),
+.dark [type='search']:hover:not(:focus),
+.dark [type='tel']:hover:not(:focus),
+.dark [type='time']:hover:not(:focus),
+.dark [type='week']:hover:not(:focus),
+.dark [multiple]:hover:not(:focus),
+.dark textarea:hover:not(:focus),
+.dark select:hover:not(:focus),
+.dark .bw-input:hover:not(:focus),
+.dark .bw-textarea:hover:not(:focus),
+.dark .bw-raw-select:hover:not(:focus) {
+    border-color: #4a4e53 !important;
+}
+
+.dark [type='text']:focus,
+.dark [type='email']:focus,
+.dark [type='url']:focus,
+.dark [type='password']:focus,
+.dark [type='number']:focus,
+.dark [type='date']:focus,
+.dark [type='datetime-local']:focus,
+.dark [type='month']:focus,
+.dark [type='search']:focus,
+.dark [type='tel']:focus,
+.dark [type='time']:focus,
+.dark [type='week']:focus,
+.dark [multiple]:focus,
+.dark textarea:focus,
+.dark select:focus,
+.dark .bw-input:focus,
+.dark .bw-textarea:focus,
+.dark .bw-raw-select:focus {
+    background-color: #101114 !important;
+    color: #ffffff !important;
+    border-color: #0ea5e9 !important;
+    box-shadow: 0 0 0 1px #0ea5e9 !important;
+    outline: 2px solid transparent !important;
+    outline-offset: 2px !important;
+}
+
+.dark [type='text']::placeholder,
+.dark [type='search']::placeholder,
+.dark [type='email']::placeholder,
+.dark [type='password']::placeholder,
+.dark textarea::placeholder,
+.dark .bw-input::placeholder,
+.dark .bw-textarea::placeholder {
+    color: #6c7075 !important;
+}
+
+/* Floating labels in Dark Mode */
+.dark .form-label {
+    background-color: #1C1F24 !important;
+    color: #a7aaad !important;
+}
+
+.dark .modal-body .form-label {
+    background-color: #262a2f !important;
+}
+
+.dark .bw-input:focus ~ .form-label,
+.dark .bw-textarea:focus ~ .form-label {
+    color: #38bdf8 !important;
+}
+
+/* Prefix and Suffix containers in Dark Mode */
+.dark .prefix,
+.dark .suffix,
+.dark div[class*='-prefix'],
+.dark div[class*='-suffix'] {
+    background-color: #101114 !important;
+    border-color: #33373c !important;
+    color: #a7aaad !important;
+}
