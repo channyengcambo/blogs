@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="px-6 sm:px-8 pt-8 pb-12 max-w-7xl mx-auto space-y-6" x-data="{
+    <div class="px-6 py-6 space-y-6 w-full" x-data="{
         viewMode: 'table',
         copiedSlug: null,
         copyToClipboard(slug) {
